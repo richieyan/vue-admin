@@ -16,17 +16,18 @@
 </template>
 
 <script>
-  import { requestLogin } from '../api/api';
+  import { requestLogin } from '../api/api'; //请求登录方法
   //import NProgress from 'nprogress'
   export default {
-    data() {
+    data() { //data属性，通常是定义一个函数，返回当前页面的数据对象
+      //这里没有用到vuex
       return {
-        logining: false,
-        ruleForm2: {
-          account: 'admin',
+        logining: false, //默认没登录
+        ruleForm2: { //默认数据 :model="ruleForm2" 
+          account: 'admin',      //v-model="ruleForm2.account" 
           checkPass: '123456'
         },
-        rules2: {
+        rules2: { //输入框校验规则 
           account: [
             { required: true, message: '请输入账号', trigger: 'blur' },
             //{ validator: validaePass }
@@ -36,37 +37,48 @@
             //{ validator: validaePass2 }
           ]
         },
-        checked: true
+        checked: true //是否选中记住密码(v-model=checked)
       };
     },
     methods: {
-      handleReset2() {
-        this.$refs.ruleForm2.resetFields();
+      handleReset2() {  //处理重置
+        //refs是template中ref声明
+        //这个是el-form对象，不是ruleForm2那个数据对象，DOM加载成功之后才能调用
+        //命名最好与数据对象命名分开，比如elRuleForm2
+        this.$refs.ruleForm2.resetFields(); 
       },
-      handleSubmit2(ev) {
-        var _this = this;
+      handleSubmit2(ev) { //ev 是事件对象
+        var _this = this; //引用记录，但是下面代码没用到
+        console.log("handleSubmit2:this---->"+this);
+        //validate是elForm的方法，参考EL的form定义
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {
             //_this.$router.replace('/table');
+            //看看this是什么
+            console.log("ruleForm2.validate:this---->"+this);
             this.logining = true;
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
             requestLogin(loginParams).then(data => {
+              console.log("requestLogin(loginParams).the:this---->"+this);
               this.logining = false;
               //NProgress.done();
-              let { msg, code, user } = data;
-              if (code !== 200) {
+              //对象解构赋值 ES6 黑魔法 http://es6.ruanyifeng.com/
+              let { msg, code, user } = data; 
+              if (code !== 200) { //判断响应中code, 从mock看，应该不是http status?
                 this.$message({
                   message: msg,
                   type: 'error'
                 });
-              } else {
+              } else { //login success
                 sessionStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/table' });
+                //this就是VueApp对象，可以拿到$router，就是router对象
+                // https://router.vuejs.org/zh-cn/essentials/navigation.html
+                this.$router.push({ path: '/table' }); //编程式导航，导航到table
               }
             });
           } else {
-            console.log('error submit!!');
+            console.log('error submit!!'); //输入不合法
             return false;
           }
         });

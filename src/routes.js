@@ -10,6 +10,8 @@ import Page5 from './views/nav2/Page5.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 
+//参考: https://router.vuejs.org/zh-cn/api/options.html#routes
+//除了必备的属性，还可以自定义各种属性，在Home.vue中使用了这些自定义的属性
 let routes = [
     { //一个route对象，包含路径，线上组件，名称，是否隐藏
         path: '/login', //路径
