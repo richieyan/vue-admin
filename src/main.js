@@ -1,16 +1,17 @@
-import babelpolyfill from 'babel-polyfill'
+import 'babel-polyfill' //ES5.1支持
+
+//库
 import Vue from 'vue'
-import App from './App'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-//import './assets/theme/theme-green/index.css'
-import VueRouter from 'vue-router'
-import store from './vuex/store'
-import Vuex from 'vuex'
-//import NProgress from 'nprogress'
-//import 'nprogress/nprogress.css'
-import routes from './routes'
-import Mock from './mock'
+import Vuex from 'vuex' //状态管理库
+import ElementUI from 'element-ui' //UI组件库
+import VueRouter from 'vue-router' //跳转控制库
+import 'element-ui/lib/theme-default/index.css' //组件的样式库
+
+//应用
+import store from './vuex/store' //应用的存储
+import routes from './routes' //应用页面跳转
+import App from './App' //应用入口
+import Mock from './mock' //mock数据
 Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
 
