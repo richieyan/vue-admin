@@ -1,16 +1,19 @@
+<!-- vue组件，vue-loader会将此文件转换为普通js文件,css文件以及html元素 -->
 <template>
 	<div id="app">
+		<!-- 特效 -->
 		<transition name="fade"
 		            mode="out-in">
+			<!-- 应用根视图 -->
 			<router-view></router-view>
 		</transition>
 	</div>
 </template>
 
 <script>
-export default {
-	name: 'app',
-	components: {
+export default { //此模块的默认导出Vue组件对象
+	name: 'app', //组件名称
+	components: { //子组件
 	}
 }
 

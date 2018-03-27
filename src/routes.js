@@ -11,25 +11,25 @@ import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 
 let routes = [
-    {
-        path: '/login',
-        component: Login,
-        name: '',
-        hidden: true
+    { //一个route对象，包含路径，线上组件，名称，是否隐藏
+        path: '/login', //路径
+        component: Login, //线上组件
+        name: '', //命名路由
+        hidden: true //应用自定义属性
     },
     {
         path: '/404',
         component: NotFound,
         name: '',
-        hidden: true
+        hidden: true //应用自定义属性
     },
     //{ path: '/main', component: Main },
     {
         path: '/',
         component: Home,
         name: '导航一',
-        iconCls: 'el-icon-message',//图标样式class
-        children: [
+        iconCls: 'el-icon-message',//图标样式class，应用自定义属性
+        children: [ //嵌套路由
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/table', component: Table, name: 'Table' },
             { path: '/form', component: Form, name: 'Form' },

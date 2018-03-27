@@ -58,6 +58,6 @@ new Vue({ //一个dict，利用ES的参数传递: {a,b}->{a:a,b:b}的特性
   router, //等价于 router: router
   store, //等价于 store: store
   //components: { App }
-  render: h => h(App) //渲染参数
+  render: h => h(App) //渲染参数,vue-loader会将App.vue变成一个渲染函数可以接受参数
 }).$mount('#app') //挂载的DOM
 
