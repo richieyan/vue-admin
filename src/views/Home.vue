@@ -23,13 +23,14 @@
 		</el-col>
 		<el-col :span="24" class="main">
 			<!-- HTML标签 aside 标签定义其所处内容之外的内容 -->
+			<!-- 这里有一个bug，菜单栏整个折叠成ICON显示，再次点击样式没有更新 -->
 			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
 				<!--导航菜单-->
 				<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
 					 unique-opened router v-show="!collapsed">
 					 <!--关键点： 遍历所有到routes，生成导航条 -->
 					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-						<el-submenu :index="index+''" :key="item.name" v-if="!item.leaf">
+						<el-submenu :index="index+''" :key="index+'key'" v-if="!item.leaf"> <!-- 子菜单容器 -->
 							<!-- slot的用户参考 https://www.zhihu.com/question/37548226 -->
 							<!-- Slots are placeholders inside your component that users can fill with their own markup. -->
 							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
@@ -38,9 +39,9 @@
 						<el-menu-item v-if="item.leaf&&item.children.length>0" :key="index" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
 					</template>
 				</el-menu>
-				<!--导航菜单-折叠后-->
+				<!--折叠 导航菜单(仅显示icon) -->
 				<ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
-					<li v-for="(item,index) in $router.options.routes" :key="item.name" v-if="!item.hidden" class="el-submenu item">
+					<li v-for="(item,index) in $router.options.routes" :key="index+'key'" v-if="!item.hidden" class="el-submenu item">
 						<template v-if="!item.leaf">
 							<div class="el-submenu__title" style="padding-left: 20px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"><i :class="item.iconCls"></i></div>
 							<ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"> 
@@ -55,6 +56,7 @@
 					</li>
 				</ul>
 			</aside>
+			<!-- section 标签 -->
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
 					<el-col :span="24" class="breadcrumb-container">
@@ -67,7 +69,7 @@
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
 						<transition name="fade" mode="out-in">
-							<router-view></router-view>
+							<router-view></router-view> <!-- 子路由视图 -->
 						</transition>
 					</el-col>
 				</div>
