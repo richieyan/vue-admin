@@ -1,4 +1,5 @@
 <template>
+    <!-- 使用el-row将所有的导航包起来 -->
 	<el-row class="container">
 		<el-col :span="24" class="header">
 			<el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
@@ -21,12 +22,16 @@
 			</el-col>
 		</el-col>
 		<el-col :span="24" class="main">
+			<!-- HTML标签 aside 标签定义其所处内容之外的内容 -->
 			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
 				<!--导航菜单-->
 				<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
 					 unique-opened router v-show="!collapsed">
+					 <!--关键点： 遍历所有到routes，生成导航条 -->
 					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 						<el-submenu :index="index+''" :key="item.name" v-if="!item.leaf">
+							<!-- slot的用户参考 https://www.zhihu.com/question/37548226 -->
+							<!-- Slots are placeholders inside your component that users can fill with their own markup. -->
 							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
 							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
 						</el-submenu>

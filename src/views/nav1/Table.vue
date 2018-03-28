@@ -1,6 +1,7 @@
 <template>
 	<section>
 		<!--工具条-->
+		<!-- toolbar是 el的class，查EL文档 -->
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true" :model="filters">
 				<el-form-item>
@@ -17,12 +18,9 @@
 
 		<!--列表-->
 		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
-			<el-table-column type="selection" width="55">
-			</el-table-column>
-			<el-table-column type="index" width="60">
-			</el-table-column>
-			<el-table-column prop="name" label="姓名" width="120" sortable>
-			</el-table-column>
+			<el-table-column type="selection" width="55"/>
+			<el-table-column type="index" width="60"/>
+			<el-table-column prop="name" label="姓名" width="120" sortable/>
 			<el-table-column prop="sex" label="性别" width="100" :formatter="formatSex" sortable>
 			</el-table-column>
 			<el-table-column prop="age" label="年龄" width="100" sortable>
@@ -46,6 +44,7 @@
 			</el-pagination>
 		</el-col>
 
+		<!-- 这两个是对话框显示，操作控制 -->
 		<!--编辑界面-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
@@ -111,7 +110,7 @@
 
 	export default {
 		data() {
-			return {
+			return { //vue的数据，这里包含了大量数据
 				filters: {
 					name: ''
 				},

@@ -26,25 +26,25 @@ let routes = [
         hidden: true //应用自定义属性
     },
     //{ path: '/main', component: Main },
-    {
+    { //当跳转到/table时，由于table是/的子路径，所有的/下的route都会生效
         path: '/',
         component: Home,
         name: '导航一',
         iconCls: 'el-icon-message',//图标样式class，应用自定义属性
         children: [ //嵌套路由
             { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: 'Table' },
+            { path: '/table', component: Table, name: 'Table' }, //登录后默认跳转到这里
             { path: '/form', component: Form, name: 'Form' },
             { path: '/user', component: user, name: '列表' },
         ]
     },
-    {
-        path: '/',
-        component: Home,
+    { //登录成功后，此导航二也会显示
+        path: '/', //同一根下,新的嵌套路由
+        component: Home, //主页面
         name: '导航二',
         iconCls: 'fa fa-id-card-o',
         children: [
-            { path: '/page4', component: Page4, name: '页面4' },
+            { path: '/page4', component: Page4, name: '页面4' }, //如果当前route是/table，不会显示这些子路由
             { path: '/page5', component: Page5, name: '页面5' }
         ]
     },
@@ -59,7 +59,7 @@ let routes = [
         ]
     },
     {
-        path: '/',
+        path: '/', //登录后同样会显示
         component: Home,
         name: 'Charts',
         iconCls: 'fa fa-bar-chart',
